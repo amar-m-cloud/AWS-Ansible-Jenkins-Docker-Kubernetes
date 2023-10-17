@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: "Create VPC and Networking Components"
+      include_role:
+        name: vpc
+
+    - name: "Install and Configure Jenkins"
+      include_role:
+        name: jenkins
+
+    - name: "Build and Push Docker Image"
+      include_role:
+        name: docker
+      vars:
+        github_repo_url: "https://github.com/your/repo.git"
+        docker_hub_username: "your_dockerhub_username"
+        docker_hub_password: "your_dockerhub_password"
+
+    - name: "Deploy Docker Image on Kubernetes"
+      include_role:
+        name: kubernetes
