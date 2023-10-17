@@ -1,0 +1,6 @@
+---
+- name: Deploy Docker Image on Kubernetes
+  k8s:
+    kubeconfig: "{{ kubeconfig_path }}"
+    state: present
+    definition: "/opt/app/kubernetes/deployment.yaml"
