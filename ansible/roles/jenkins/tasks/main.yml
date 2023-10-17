@@ -1,0 +1,30 @@
+---
+- name: Install Jenkins
+  become: true
+  apt:
+    name: jenkins
+    state: present
+
+- name: Start Jenkins Service
+  become: true
+  service:
+    name: jenkins
+    state: started
+    enabled: yes
+
+- name: Wait for Jenkins to Start
+  uri:
+    url: http://localhost:8080
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 10
+
+- name: Get Jenkins Unlock Key
+  shell: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+  register: jenkins_unlock_key
+
+- name: Debug Jenkins Unlock Key
+  debug:
+    var: jenkins_unlock_key.stdout_lines
