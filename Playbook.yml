@@ -16,9 +16,9 @@
       include_role:
         name: docker
       vars:
-        github_repo_url: "https://github.com/your/repo.git"
-        docker_hub_username: "your_dockerhub_username"
-        docker_hub_password: "your_dockerhub_password"
+        github_repo_url: "https://github.com/amar-m-cloud/Django-Notes-Application.git"
+        docker_hub_username: "amar-m-cloud"
+        docker_hub_password: "Amar@796272"
 
     - name: "Deploy Docker Image on Kubernetes"
       include_role:
