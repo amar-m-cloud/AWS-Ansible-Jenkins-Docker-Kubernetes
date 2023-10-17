@@ -1,0 +1,21 @@
+---
+- name: Clone GitHub Repo
+  git:
+    repo: "{{ github_repo_url }}"
+    dest: "/opt/app"
+
+- name: Build Docker Image
+  docker_image:
+    name: "{{ docker_hub_username }}/myapp"
+    path: "/opt/app"
+    build:
+      pull: yes
+
+- name: Log in to Docker Hub
+  docker_login:
+    username: "{{ docker_hub_username }}"
+    password: "{{ docker_hub_password }}"
+
+- name: Push Docker Image to Docker Hub
+  docker_image_push:
+    name: "{{ docker_hub_username }}/myapp"
